@@ -68,7 +68,7 @@ names(x) <- gsub("\\(|\\)", "", (features[index_features, 2]))
 
 ### 3. Uses descriptive activity names to name the activities in the data set
 ### 4. Appropriately labels the data set with descriptive activity names
-## Read activity labels
+### Read activity labels
 activities <- read.table("./activity_labels.txt")
 
 ### Appropriate names to activities column
@@ -78,19 +78,19 @@ y[, 1] = activities[y[, 1], 2]
 names(y) <- "Activity"
 names(s) <- "Subject"
 
-# Combines data table by columns
+### Combines data table by columns
 tidyDataSet <- cbind(s, y, x)
 
-# 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+### 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
 t <- tidyDataSet[, 3:dim(tidyDataSet)[2]] 
 tidyDataSetAVG <- aggregate(t,list(tidyDataSet$Subject, tidyDataSet$Activity), mean)
 
-# Activity and Subject name of columns 
+### Activity and Subject name of columns 
 names(tidyDataSetAVG)[1] <- "Subject"
 names(tidyDataSetAVG)[2] <- "Activity"
 
-# Create tidy data set in diretory
+### Create tidy data set in diretory
 write.table(tidyDataSet, tidyDataFile, row.name=FALSE)
 
-# Create AVG tidy data set in diretory
+### Create AVG tidy data set in diretory
 write.table(tidyDataSetAVG, tidyDataFileAVG, row.name=FALSE)
